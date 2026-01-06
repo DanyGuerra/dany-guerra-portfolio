@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted, computed } from 'vue';
 import ThemeToggle from './ThemeToggle.vue';
 import ColorPicker from './ColorPicker.vue';
 import LanguageToggle from './LanguageToggle.vue';
+import Logo from './Logo.vue';
 import { useLanguage } from '../composables/useLanguage';
 
 const { t } = useLanguage();
@@ -36,7 +37,9 @@ onUnmounted(() => {
 <template>
   <header class="navbar" :class="{ 'scrolled': isScrolled }">
     <div class="container navbar-content">
-      <a href="#" class="logo text-gradient mono">&lt;DanyGuerra /&gt;</a>
+      <a href="#" class="logo-link" aria-label="Home">
+        <Logo />
+      </a>
 
       <!-- Desktop Menu -->
       <nav class="desktop-nav">
