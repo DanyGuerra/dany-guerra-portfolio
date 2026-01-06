@@ -263,7 +263,7 @@ onUnmounted(() => {
   width: auto;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 768px) {
   .desktop-nav {
     display: none;
   }
