@@ -18,7 +18,13 @@ const themes = {
     green: 0x00dc82,
     blue: 0x3b82f6,
     purple: 0xa855f7,
-    orange: 0xf97316
+    orange: 0xf97316,
+    red: 0xef4444,
+    yellow: 0xeab308,
+    teal: 0x14b8a6,
+    cyan: 0x06b6d4,
+    indigo: 0x6366f1,
+    pink: 0xec4899
   },
   // Light Mode Palettes
   light: {
@@ -26,7 +32,13 @@ const themes = {
     green: 0x047857,
     blue: 0x1e40af,
     purple: 0x7e22ce,
-    orange: 0xc2410c
+    orange: 0xc2410c,
+    red: 0xb91c1c,
+    yellow: 0xa16207,
+    teal: 0x0f766e,
+    cyan: 0x0e7490,
+    indigo: 0x4338ca,
+    pink: 0xbe185d
   }
 };
 
@@ -47,6 +59,40 @@ const updateThemeColors = () => {
   }
 };
 
+const createRockTexture = () => {
+  const size = 64;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+
+  const context = canvas.getContext('2d');
+  if (context) {
+    const items = 8; // vertices
+    const center = size / 2;
+    const radius = size / 3;
+
+    context.beginPath();
+    for (let i = 0; i < items; i++) {
+      const angle = (i / items) * Math.PI * 2;
+      // Randomize radius for jagged look
+      const r = radius * (0.7 + Math.random() * 0.6);
+      const x = center + Math.cos(angle) * r;
+      const y = center + Math.sin(angle) * r;
+
+      if (i === 0) context.moveTo(x, y);
+      else context.lineTo(x, y);
+    }
+    context.closePath();
+    context.fillStyle = '#ffffff';
+    context.fill();
+  }
+
+  const texture = new THREE.CanvasTexture(canvas);
+  return texture;
+};
+
+let initialZ: Float32Array;
+
 const init = () => {
   if (!container.value) return;
 
@@ -62,20 +108,26 @@ const init = () => {
   container.value.appendChild(renderer.domElement);
 
   const particlesGeometry = new THREE.BufferGeometry();
-  const particlesCount = 5000;
+  const particlesCount = 500000;
   const posArray = new Float32Array(particlesCount * 3);
+  initialZ = new Float32Array(particlesCount);
 
-  for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 5;
+  for (let i = 0; i < particlesCount * 3; i += 3) {
+    posArray[i] = (Math.random() - 0.5) * 10;
+    posArray[i + 1] = (Math.random() - 0.5) * 10;
+    posArray[i + 2] = (Math.random() - 0.5) * 10;
+    initialZ[i / 3] = posArray[i + 2];
   }
 
   particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
   const material = new THREE.PointsMaterial({
-    size: 0.008,
+    size: 0.007,
     color: 0x00dc82,
     transparent: true,
-    opacity: 0.8,
+    opacity: 1,
+    map: createRockTexture(),
+    alphaTest: 0.5
   });
 
   stars = new THREE.Points(particlesGeometry, material);
@@ -96,9 +148,22 @@ const init = () => {
 const animate = () => {
   animationFrameId = requestAnimationFrame(animate);
 
-  if (stars) {
-    stars.rotation.y += 0.0005;
-    stars.rotation.x += 0.0002;
+  if (stars && stars.geometry && stars.geometry.attributes.position) {
+    stars.rotation.z += 0.0001; // Gentle rotation
+
+    const positions = stars.geometry.attributes.position.array as Float32Array;
+    const scrollY = window.scrollY;
+
+    for (let i = 0; i < initialZ.length; i++) {
+      let z = initialZ[i] + (scrollY * 0.0005);
+
+      const depth = 10;
+
+      const zRelative = (z + 5) % depth;
+      positions[i * 3 + 2] = zRelative - 5;
+    }
+
+    stars.geometry.attributes.position.needsUpdate = true;
   }
 
   renderer.render(scene, camera);

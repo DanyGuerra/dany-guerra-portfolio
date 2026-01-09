@@ -111,6 +111,84 @@
   --primary-hover-bg: rgba(234, 88, 12, 0.1);
 }
 
+/* Red */
+[data-color="red"] {
+  --primary: #ef4444;
+  --primary-glow: rgba(239, 68, 68, 0.4);
+  --primary-hover-bg: rgba(239, 68, 68, 0.1);
+  --accent: #f59e0b;
+}
+[data-theme="light"][data-color="red"] {
+  --primary: #dc2626;
+  --primary-glow: rgba(220, 38, 38, 0.4);
+  --primary-hover-bg: rgba(220, 38, 38, 0.1);
+}
+
+/* Yellow */
+[data-color="yellow"] {
+  --primary: #eab308;
+  --primary-glow: rgba(234, 179, 8, 0.4);
+  --primary-hover-bg: rgba(234, 179, 8, 0.1);
+  --accent: #f97316;
+}
+[data-theme="light"][data-color="yellow"] {
+  --primary: #ca8a04;
+  --primary-glow: rgba(202, 138, 4, 0.4);
+  --primary-hover-bg: rgba(202, 138, 4, 0.1);
+}
+
+/* Teal */
+[data-color="teal"] {
+  --primary: #14b8a6;
+  --primary-glow: rgba(20, 184, 166, 0.4);
+  --primary-hover-bg: rgba(20, 184, 166, 0.1);
+  --accent: #3b82f6;
+}
+[data-theme="light"][data-color="teal"] {
+  --primary: #0d9488;
+  --primary-glow: rgba(13, 148, 136, 0.4);
+  --primary-hover-bg: rgba(13, 148, 136, 0.1);
+}
+
+/* Cyan */
+[data-color="cyan"] {
+  --primary: #06b6d4;
+  --primary-glow: rgba(6, 182, 212, 0.4);
+  --primary-hover-bg: rgba(6, 182, 212, 0.1);
+  --accent: #8b5cf6;
+}
+[data-theme="light"][data-color="cyan"] {
+  --primary: #0891b2;
+  --primary-glow: rgba(8, 145, 178, 0.4);
+  --primary-hover-bg: rgba(8, 145, 178, 0.1);
+}
+
+/* Indigo */
+[data-color="indigo"] {
+  --primary: #6366f1;
+  --primary-glow: rgba(99, 102, 241, 0.4);
+  --primary-hover-bg: rgba(99, 102, 241, 0.1);
+  --accent: #ec4899;
+}
+[data-theme="light"][data-color="indigo"] {
+  --primary: #4f46e5;
+  --primary-glow: rgba(79, 70, 229, 0.4);
+  --primary-hover-bg: rgba(79, 70, 229, 0.1);
+}
+
+/* Pink */
+[data-color="pink"] {
+  --primary: #ec4899;
+  --primary-glow: rgba(236, 72, 153, 0.4);
+  --primary-hover-bg: rgba(236, 72, 153, 0.1);
+  --accent: #f43f5e;
+}
+[data-theme="light"][data-color="pink"] {
+  --primary: #db2777;
+  --primary-glow: rgba(219, 39, 119, 0.4);
+  --primary-hover-bg: rgba(219, 39, 119, 0.1);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

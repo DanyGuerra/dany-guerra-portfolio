@@ -5,10 +5,16 @@ import { useThemeColor } from '../composables/useThemeColor';
 const { currentColor, setColor, initColor } = useThemeColor();
 
 const colors = [
+  { name: 'red', value: '#ef4444' },
+  { name: 'orange', value: '#f97316' },
+  { name: 'yellow', value: '#eab308' },
   { name: 'green', value: '#10b981' },
+  { name: 'teal', value: '#14b8a6' },
+  { name: 'cyan', value: '#06b6d4' },
   { name: 'blue', value: '#3b82f6' },
+  { name: 'indigo', value: '#6366f1' },
   { name: 'purple', value: '#a855f7' },
-  { name: 'orange', value: '#f97316' }
+  { name: 'pink', value: '#ec4899' },
 ];
 
 const isOpen = ref(false);
@@ -89,13 +95,12 @@ onUnmounted(() => {
   position: absolute;
   top: 120%;
   right: 0;
-  /* Align right */
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   opacity: 0;
   visibility: hidden;
@@ -103,7 +108,6 @@ onUnmounted(() => {
   transition: all var(--transition-fast);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   z-index: 102;
-  /* Above everything */
 }
 
 .options-popover.open {
@@ -113,14 +117,17 @@ onUnmounted(() => {
 }
 
 .option-btn {
-  padding: 4px;
-  border-radius: 4px;
-  transition: background 0.2s;
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .option-btn:hover {
   background: var(--bg-card-hover);
+  transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
@@ -128,9 +135,6 @@ onUnmounted(() => {
     right: auto;
     left: 50%;
     transform: translateX(-50%) translateY(10px);
-    /* Center on mobile */
-    flex-direction: row;
-    /* Horizontal on mobile */
   }
 
   .options-popover.open {
