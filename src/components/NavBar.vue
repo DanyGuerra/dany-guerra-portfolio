@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, computed } from 'vue';
 import ThemeToggle from './ThemeToggle.vue';
 import ColorPicker from './ColorPicker.vue';
 import LanguageToggle from './LanguageToggle.vue';
@@ -7,7 +7,6 @@ import Logo from './Logo.vue';
 import { useLanguage } from '../composables/useLanguage';
 
 const { t } = useLanguage();
-const isScrolled = ref(false);
 const isMobileMenuOpen = ref(false);
 
 const navLinks = computed(() => [
@@ -17,25 +16,14 @@ const navLinks = computed(() => [
   { name: t.value.nav.contact, href: '#contact' }
 ]);
 
-const handleScroll = () => {
-  isScrolled.value = window.scrollY > 50;
-};
-
 const toggleMenu = () => {
   isMobileMenuOpen.value = !isMobileMenuOpen.value;
 };
 
-onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-});
 </script>
 
 <template>
-  <header class="navbar" :class="{ 'scrolled': isScrolled }">
+  <header class="navbar">
     <div class="container navbar-content">
       <a href="#" class="logo-link" aria-label="Home">
         <Logo />
@@ -87,8 +75,8 @@ onUnmounted(() => {
   height: var(--header-height);
   z-index: 100;
   transition: all var(--transition-smooth);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .mobile-nav {
@@ -108,13 +96,6 @@ onUnmounted(() => {
 .nav-buttons {
   display: flex;
   align-items: center;
-}
-
-.navbar.scrolled {
-  height: 70px;
-  background: var(--nav-bg-scrolled);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  border-bottom: 1px solid var(--nav-border-scrolled);
 }
 
 .navbar-content {
@@ -224,7 +205,10 @@ onUnmounted(() => {
   right: 0;
   width: 100%;
   height: 100vh;
-  background: var(--bg-dark);
+  background: var(--nav-bg-scrolled);
+  /* Semi-transparent for glass effect */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
   justify-content: center;
