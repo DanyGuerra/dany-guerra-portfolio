@@ -44,7 +44,7 @@ const toggleMenu = () => {
       </nav>
 
       <!-- Mobile Toggle -->
-      <button class="mobile-toggle" @click="toggleMenu" aria-label="Toggle Menu">
+      <button class="mobile-toggle" :class="{ 'open': isMobileMenuOpen }" @click="toggleMenu" aria-label="Toggle Menu">
         <span class="hamburger" :class="{ 'active': isMobileMenuOpen }"></span>
       </button>
 
@@ -110,9 +110,7 @@ const toggleMenu = () => {
   font-weight: 700;
   letter-spacing: -0.5px;
   white-space: nowrap;
-  /* Prevent wrapping */
   flex-grow: 1;
-  /* Take up available space */
 }
 
 .desktop-nav {
@@ -155,6 +153,10 @@ const toggleMenu = () => {
   padding: 12px;
 }
 
+.mobile-toggle.open {
+  display: block;
+}
+
 .hamburger {
   display: block;
   width: 30px;
@@ -176,12 +178,10 @@ const toggleMenu = () => {
 
 .hamburger::before {
   top: -10px;
-  /* More spacing */
 }
 
 .hamburger::after {
   bottom: -10px;
-  /* More spacing */
 }
 
 .hamburger.active {
@@ -205,7 +205,7 @@ const toggleMenu = () => {
   right: 0;
   width: 100%;
   height: 100vh;
-  background: var(--nav-bg-scrolled);
+  background: var(--bg-dark);
   /* Semi-transparent for glass effect */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
