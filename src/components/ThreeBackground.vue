@@ -12,7 +12,6 @@ let animationFrameId: number;
 let observer: MutationObserver;
 
 const themes = {
-  // Dark Mode Palettes
   dark: {
     fog: 0x0f1115,
     green: 0x00dc82,
@@ -67,14 +66,13 @@ const createRockTexture = () => {
 
   const context = canvas.getContext('2d');
   if (context) {
-    const items = 8; // vertices
+    const items = 8;
     const center = size / 2;
     const radius = size / 3;
 
     context.beginPath();
     for (let i = 0; i < items; i++) {
       const angle = (i / items) * Math.PI * 2;
-      // Randomize radius for jagged look
       const r = radius * (0.7 + Math.random() * 0.6);
       const x = center + Math.cos(angle) * r;
       const y = center + Math.sin(angle) * r;
@@ -91,6 +89,9 @@ const createRockTexture = () => {
   return texture;
 };
 
+
+let initialX: Float32Array;
+let initialY: Float32Array;
 let initialZ: Float32Array;
 
 const init = () => {
@@ -110,12 +111,16 @@ const init = () => {
   const particlesGeometry = new THREE.BufferGeometry();
   const particlesCount = 500000;
   const posArray = new Float32Array(particlesCount * 3);
+  initialX = new Float32Array(particlesCount);
+  initialY = new Float32Array(particlesCount);
   initialZ = new Float32Array(particlesCount);
 
   for (let i = 0; i < particlesCount * 3; i += 3) {
     posArray[i] = (Math.random() - 0.5) * 10;
     posArray[i + 1] = (Math.random() - 0.5) * 10;
     posArray[i + 2] = (Math.random() - 0.5) * 10;
+    initialX[i / 3] = posArray[i];
+    initialY[i / 3] = posArray[i + 1];
     initialZ[i / 3] = posArray[i + 2];
   }
 
@@ -141,26 +146,56 @@ const init = () => {
     attributeFilter: ['data-theme', 'data-color']
   });
 
+  window.addEventListener('mousemove', onMouseMove);
   animate();
   window.addEventListener('resize', onWindowResize);
+};
+
+let mouseX = 0;
+let mouseY = 0;
+let targetX = 0;
+let targetY = 0;
+
+const onMouseMove = (event: MouseEvent) => {
+  mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+  mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
 };
 
 const animate = () => {
   animationFrameId = requestAnimationFrame(animate);
 
   if (stars && stars.geometry && stars.geometry.attributes.position) {
-    stars.rotation.z += 0.0001; // Gentle rotation
+    stars.rotation.z += 0.0001;
 
     const positions = stars.geometry.attributes.position.array as Float32Array;
     const scrollY = window.scrollY;
 
+    const vector = new THREE.Vector3(mouseX, mouseY, 0.5);
+    vector.unproject(camera);
+    const dir = vector.sub(camera.position).normalize();
+    const distance = -camera.position.z / dir.z;
+    const pos = camera.position.clone().add(dir.multiplyScalar(distance));
+
+    targetX += (pos.x - targetX) * 0.02;
+    targetY += (pos.y - targetY) * 0.02;
+
     for (let i = 0; i < initialZ.length; i++) {
       let z = initialZ[i] + (scrollY * 0.0005);
-
       const depth = 10;
-
       const zRelative = (z + 5) % depth;
       positions[i * 3 + 2] = zRelative - 5;
+
+      const ix = initialX[i];
+      const iy = initialY[i];
+
+      const dx = targetX - ix;
+      const dy = targetY - iy;
+      const distSq = dx * dx + dy * dy;
+
+      const force = Math.max(0, (4 - Math.sqrt(distSq)) * 0.08);
+
+      positions[i * 3] = ix + dx * force;
+      positions[i * 3 + 1] = iy + dy * force;
     }
 
     stars.geometry.attributes.position.needsUpdate = true;
@@ -184,6 +219,7 @@ onUnmounted(() => {
   if (animationFrameId) cancelAnimationFrame(animationFrameId);
   if (observer) observer.disconnect();
   window.removeEventListener('resize', onWindowResize);
+  window.removeEventListener('mousemove', onMouseMove);
   if (renderer) renderer.dispose();
 });
 </script>
