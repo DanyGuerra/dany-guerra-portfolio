@@ -100,7 +100,7 @@ const translations = {
                     projectLink: 'https://topstats-brown.vercel.app/'
                 },
                 {
-                    title: 'RestHub',
+                    title: 'RestAgile',
                     description: 'Web application for business management. Order, product, and role management, including a Kanban board for order tracking.',
                     tech: [
                         'Next.js',
@@ -119,14 +119,14 @@ const translations = {
                         'Jest'
                     ],
                     githubLink: 'https://github.com/DanyGuerra/business-manager-frontend',
-                    projectLink: 'https://business-manager-frontend.vercel.app/'
+                    projectLink: 'https://www.restagile.com/'
                 },
                 {
-                    title: 'Api RestHub',
+                    title: 'Api Agile',
                     description: 'API for business management. Order, menu, product, and administrative role management.',
                     tech: ['NestJS', 'TypeScript', 'AWS', 'PostgreSQL', 'JWT'],
                     githubLink: 'https://github.com/DanyGuerra/api-restaurant-manager',
-                    projectLink: 'https://business-manager-frontend.vercel.app/'
+                    projectLink: 'https://www.restagile.com/'
                 }
             ]
         },
@@ -258,18 +258,18 @@ const translations = {
                     projectLink: 'https://topstats-brown.vercel.app/'
                 },
                 {
-                    title: 'RestHub',
+                    title: 'RestAgile',
                     description: 'Aplicación web para la gestión de negocios. Gestión de pedidos, productos y roles de administración. Tablero Kanban para la gestión de pedidos.',
                     tech: ['Nextjs', 'React', 'TypeScript', "shadcn/ui", "Tailwind CSS", "Zustand", "WebSockets", "Socket.io", "AWS", "MongoDB", "Node.js", "Express", "JWT", "jest"],
                     githubLink: 'https://github.com/DanyGuerra/business-manager-frontend',
-                    projectLink: 'https://business-manager-frontend.vercel.app/'
+                    projectLink: 'https://www.restagile.com/'
                 },
                 {
-                    title: 'Api RestHub',
+                    title: 'Api Agile',
                     description: 'Api para la gestión de negocios. Gestión de pedidos, menús, productos y roles de administración.',
                     tech: ['Nestjs', 'TypeScript', "AWS", "PostgreSQL", "JWT"],
                     githubLink: 'https://github.com/DanyGuerra/api-restaurant-manager',
-                    projectLink: 'https://business-manager-frontend.vercel.app/'
+                    projectLink: 'https://www.restagile.com/'
                 },
             ]
         },
