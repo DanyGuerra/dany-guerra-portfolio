@@ -10,6 +10,7 @@ let renderer: THREE.WebGLRenderer;
 let stars: THREE.Points;
 let animationFrameId: number;
 let observer: MutationObserver;
+let mouseGlow: THREE.Sprite;
 
 const themes = {
   dark: {
@@ -55,6 +56,10 @@ const updateThemeColors = () => {
     // @ts-ignore
     const starColor = theme[colorMode] || theme.green;
     stars.material.color.setHex(starColor);
+
+    if (mouseGlow && mouseGlow.material instanceof THREE.SpriteMaterial) {
+      mouseGlow.material.color.setHex(starColor);
+    }
   }
 };
 
@@ -89,6 +94,26 @@ const createRockTexture = () => {
   return texture;
 };
 
+
+const createGlowTexture = () => {
+  const canvas = document.createElement('canvas');
+  canvas.width = 128;
+  canvas.height = 128;
+  const context = canvas.getContext('2d');
+  if (context) {
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = canvas.width / 2;
+    const gradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.6)');
+    gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.2)');
+    gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    context.fillStyle = gradient;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+  }
+  return new THREE.CanvasTexture(canvas);
+};
 
 let initialX: Float32Array;
 let initialY: Float32Array;
@@ -138,6 +163,18 @@ const init = () => {
   stars = new THREE.Points(particlesGeometry, material);
   scene.add(stars);
 
+  const glowMaterial = new THREE.SpriteMaterial({
+    map: createGlowTexture(),
+    color: 0x00dc82,
+    transparent: true,
+    blending: THREE.AdditiveBlending,
+    opacity: 0.8,
+    depthWrite: false
+  });
+  mouseGlow = new THREE.Sprite(glowMaterial);
+  mouseGlow.scale.set(6, 6, 1);
+  scene.add(mouseGlow);
+
   updateThemeColors();
 
   observer = new MutationObserver(updateThemeColors);
@@ -178,6 +215,10 @@ const animate = () => {
 
     targetX += (pos.x - targetX) * 0.02;
     targetY += (pos.y - targetY) * 0.02;
+
+    if (mouseGlow) {
+      mouseGlow.position.set(targetX, targetY, -1);
+    }
 
     for (let i = 0; i < initialZ.length; i++) {
       let z = initialZ[i] + (scrollY * 0.0005);
