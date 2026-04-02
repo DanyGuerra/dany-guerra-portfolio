@@ -57,7 +57,7 @@ const updateThemeColors = () => {
     const starColor = theme[colorMode] || theme.green;
     stars.material.color.setHex(starColor);
 
-    if (mouseGlow && mouseGlow.material instanceof THREE.SpriteMaterial) {
+    if (mouseGlow && mouseGlow.material instanceof THREE.MeshBasicMaterial) {
       mouseGlow.material.color.setHex(starColor);
     }
   }
@@ -97,17 +97,17 @@ const createRockTexture = () => {
 
 const createGlowTexture = () => {
   const canvas = document.createElement('canvas');
-  canvas.width = 128;
-  canvas.height = 128;
+  canvas.width = 256;
+  canvas.height = 256;
   const context = canvas.getContext('2d');
   if (context) {
     const centerX = canvas.width / 2;
     const centerY = canvas.height / 2;
     const radius = canvas.width / 2;
     const gradient = context.createRadialGradient(centerX, centerY, 0, centerX, centerY, radius);
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-    gradient.addColorStop(0.2, 'rgba(255, 255, 255, 0.6)');
-    gradient.addColorStop(0.5, 'rgba(255, 255, 255, 0.2)');
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 0.8)');
+    gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.3)');
+    gradient.addColorStop(0.7, 'rgba(255, 255, 255, 0.05)');
     gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
     context.fillStyle = gradient;
     context.fillRect(0, 0, canvas.width, canvas.height);
@@ -152,27 +152,29 @@ const init = () => {
   particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
 
   const material = new THREE.PointsMaterial({
-    size: 0.007,
+    size: 0.006,
     color: 0x00dc82,
     transparent: true,
-    opacity: 1,
+    opacity: 0.8,
     map: createRockTexture(),
-    alphaTest: 0.5
+    alphaTest: 0.1
   });
 
   stars = new THREE.Points(particlesGeometry, material);
   scene.add(stars);
 
-  const glowMaterial = new THREE.SpriteMaterial({
+  // Use Mesh instead of Sprite – Safari has pixel artifacts with Sprite + AdditiveBlending
+  const glowGeometry = new THREE.PlaneGeometry(6, 6);
+  const glowMaterial = new THREE.MeshBasicMaterial({
     map: createGlowTexture(),
     color: 0x00dc82,
     transparent: true,
-    blending: THREE.AdditiveBlending,
-    opacity: 0.8,
-    depthWrite: false
+    blending: THREE.NormalBlending,
+    opacity: 0.6,
+    depthWrite: false,
+    side: THREE.DoubleSide
   });
-  mouseGlow = new THREE.Sprite(glowMaterial);
-  mouseGlow.scale.set(6, 6, 1);
+  mouseGlow = new THREE.Mesh(glowGeometry, glowMaterial) as unknown as THREE.Sprite;
   scene.add(mouseGlow);
 
   updateThemeColors();

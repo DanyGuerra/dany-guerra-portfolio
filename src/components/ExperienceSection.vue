@@ -86,6 +86,20 @@ const activeTab = ref(0);
 .experience-tabs {
   display: flex;
   gap: 4rem;
+  background: var(--nav-bg-scrolled);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.experience-tabs:hover {
+  border-color: var(--primary);
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px var(--primary-hover-bg);
 }
 
 /* Tabs */
@@ -101,7 +115,8 @@ const activeTab = ref(0);
 .tab-btn {
   height: 42px;
   padding: 0 20px;
-  color: var(--text-muted);
+  color: var(--text-main);
+  opacity: 0.7;
   transition: var(--transition-fast);
   text-align: left;
 }
@@ -109,6 +124,7 @@ const activeTab = ref(0);
 .tab-btn:hover,
 .tab-btn.active {
   color: var(--primary);
+  opacity: 1;
   background: var(--primary-hover-bg);
 }
 
@@ -125,8 +141,8 @@ const activeTab = ref(0);
 /* Panel */
 .tab-panel {
   flex: 1;
-  background: var(--bg-card);
-  padding: 2rem;
+  background: transparent;
+  padding: 0;
   border-radius: 8px;
   animation: fadeIn 0.4s ease-out;
   border: 1px solid transparent;
@@ -134,8 +150,7 @@ const activeTab = ref(0);
 }
 
 .tab-panel:hover {
-  border-color: var(--border);
-  background: var(--bg-card-hover);
+  transform: translateY(-2px);
 }
 
 @keyframes fadeIn {
@@ -185,6 +200,7 @@ const activeTab = ref(0);
   .experience-tabs {
     flex-direction: column;
     gap: 2rem;
+    padding: 2rem 1rem;
   }
 
   .experience-section {

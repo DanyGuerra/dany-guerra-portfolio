@@ -75,8 +75,9 @@ const toggleMenu = () => {
   height: var(--header-height);
   z-index: 100;
   transition: all var(--transition-smooth);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: transparent;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .mobile-nav {
@@ -123,15 +124,34 @@ const toggleMenu = () => {
   font-size: 0.9rem;
   color: var(--text-muted);
   transition: var(--transition-fast);
+  position: relative;
+  padding: 0.5rem 0;
+  font-weight: 500;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--primary);
+  transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-  color: var(--primary);
+  color: var(--text-main);
+}
+
+.nav-link:hover::after {
+  width: 100%;
 }
 
 .nav-link span {
   color: var(--primary);
   margin-right: 0.25rem;
+  font-weight: 600;
 }
 
 .btn-outline {
@@ -177,11 +197,11 @@ const toggleMenu = () => {
 }
 
 .hamburger::before {
-  top: -10px;
+  top: -8px;
 }
 
 .hamburger::after {
-  bottom: -10px;
+  bottom: -8px;
 }
 
 .hamburger.active {
@@ -205,17 +225,17 @@ const toggleMenu = () => {
   right: 0;
   width: 100%;
   height: 100vh;
-  background: var(--bg-dark);
+  background: var(--nav-bg-scrolled);
   /* Semi-transparent for glass effect */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transform: translateX(100%);
   transition: transform var(--transition-smooth);
-  z-index: 100;
+  z-index: 99; /* Lower than toggle */
 }
 
 .mobile-menu.open {

@@ -68,6 +68,17 @@ onMounted(() => {
         <BaseButton href="#projects" variant="primary">{{ t.hero.ctaWork }}</BaseButton>
         <BaseButton href="#contact" variant="outline">{{ t.hero.ctaContact }}</BaseButton>
       </div>
+
+      <!-- Scroll Indicator -->
+      <div class="scroll-indicator">
+        <div class="mouse">
+          <div class="wheel"></div>
+        </div>
+        <div class="arrows">
+          <span class="arrow"></span>
+          <span class="arrow"></span>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -85,6 +96,7 @@ onMounted(() => {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  position: relative; /* For the scroll indicator */
 }
 
 .intro-text {
@@ -105,6 +117,31 @@ onMounted(() => {
   color: var(--text-main);
   line-height: 1.1;
   margin-bottom: var(--spacing-xs);
+  position: relative;
+  display: inline-block;
+}
+
+.name-text::before {
+  content: "Dany Guerra.";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  color: transparent;
+  text-shadow: 0 0 40px var(--primary-glow);
+  pointer-events: none;
+  z-index: -1;
+  animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .role-text {
@@ -145,6 +182,75 @@ onMounted(() => {
 .cta-buttons {
   display: flex;
   gap: var(--spacing-md);
+  margin-bottom: 80px; /* Make room for scroll indicator */
+}
+
+/* Scroll Indicator Styles */
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-indicator:hover {
+  opacity: 1;
+}
+
+.mouse {
+  width: 26px;
+  height: 42px;
+  border-radius: 15px;
+  border: 2px solid var(--text-muted);
+  display: flex;
+  justify-content: center;
+  padding-top: 6px;
+}
+
+.wheel {
+  width: 4px;
+  height: 8px;
+  border-radius: 2px;
+  background-color: var(--primary);
+  animation: scroll 2s cubic-bezier(0.15, 0.41, 0.69, 0.94) infinite;
+}
+
+@keyframes scroll {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(15px); opacity: 0; }
+}
+
+.arrows {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--primary);
+  border-bottom: 2px solid var(--primary);
+  transform: rotate(45deg);
+  margin: -3px 0;
+  animation: arrow-scroll 2s infinite;
+}
+
+.arrow:nth-child(2) {
+  animation-delay: -0.2s;
+}
+
+@keyframes arrow-scroll {
+  0% { opacity: 0; transform: rotate(45deg) translate(-5px, -5px); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(45deg) translate(5px, 5px); }
 }
 
 @media (max-width: 768px) {

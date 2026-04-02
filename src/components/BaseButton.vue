@@ -38,23 +38,29 @@ const isLink = computed(() => !!props.href);
 .btn-primary {
   border: 1px solid var(--primary);
   color: var(--primary);
-  background: transparent;
+  background: var(--nav-bg-scrolled);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .btn-primary:hover {
   background: var(--primary-hover-bg);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--primary-glow);
 }
 
 .btn-outline {
   border: 1px solid var(--text-muted);
   color: var(--text-main);
-  background: transparent;
+  background: var(--nav-bg-scrolled);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .btn-outline:hover {
   border-color: var(--text-main);
   transform: translateY(-2px);
-  background: transparent;
+  background: var(--bg-card-hover);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 </style>
