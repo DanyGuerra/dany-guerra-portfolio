@@ -86,7 +86,7 @@ const activeTab = ref(0);
 .experience-tabs {
   display: flex;
   gap: 4rem;
-  background: var(--nav-bg-scrolled);
+  background: var(--glass-card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 3rem;

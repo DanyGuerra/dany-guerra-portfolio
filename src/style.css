@@ -44,6 +44,9 @@
   --primary-hover-bg: rgba(0, 220, 130, 0.1);
   
   --text-shadow-strong: 0 4px 16px rgba(0, 0, 0, 0.9), 0 2px 4px rgba(0, 0, 0, 0.8);
+
+  /* Glass card bg — más translúcido para ver el ThreeBackground */
+  --glass-card-bg: rgba(15, 17, 21, 0.35);
 }
 
 [data-theme="light"] {
@@ -71,6 +74,9 @@
   --primary-hover-bg: rgba(16, 185, 129, 0.1);
   
   --text-shadow-strong: 0 0px 10px rgba(255, 255, 255, 0.9), 0 2px 4px rgba(255, 255, 255, 0.7);
+
+  /* Glass card bg — light mode */
+  --glass-card-bg: rgba(255, 255, 255, 0.45);
 }
 
 /* Color Palettes */

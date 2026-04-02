@@ -51,7 +51,7 @@ const { t } = useLanguage();
 }
 
 .contact-box {
-  background: var(--nav-bg-scrolled);
+  background: var(--glass-card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 4rem 2rem;

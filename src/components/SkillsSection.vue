@@ -63,7 +63,7 @@ const { t } = useLanguage();
 }
 
 .skill-category {
-  background: var(--nav-bg-scrolled);
+  background: var(--glass-card-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding: 2.5rem 2rem;
