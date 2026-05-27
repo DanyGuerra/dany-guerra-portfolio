@@ -235,11 +235,12 @@ const toggleMenu = () => {
   align-items: center;
   transform: translateX(100%);
   transition: transform var(--transition-smooth);
-  z-index: 99; /* Lower than toggle */
+  z-index: 99;
 }
 
 .mobile-menu.open {
   transform: translateX(0);
+  background-color: var(--nav-bg);
 }
 
 .mobile-link {

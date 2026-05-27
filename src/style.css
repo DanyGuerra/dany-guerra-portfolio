@@ -40,6 +40,7 @@
 
   /* Nav Theme */
   --nav-bg-scrolled: rgba(15, 17, 21, 0.85);
+  --nav-bg: rgba(15, 17, 21, 0.95);
   --nav-border-scrolled: rgba(255, 255, 255, 0.05);
   --primary-hover-bg: rgba(0, 220, 130, 0.1);
   
@@ -70,6 +71,7 @@
 
   /* Nav Theme Light */
   --nav-bg-scrolled: rgba(255, 255, 255, 0.85);
+  --nav-bg: rgba(255, 255, 255, 0.95);
   --nav-border-scrolled: rgba(0, 0, 0, 0.05);
   --primary-hover-bg: rgba(16, 185, 129, 0.1);
   
