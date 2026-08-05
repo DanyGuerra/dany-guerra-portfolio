@@ -127,6 +127,20 @@ const translations = {
                     tech: ['NestJS', 'TypeScript', 'AWS', 'PostgreSQL', 'JWT'],
                     githubLink: 'https://github.com/DanyGuerra/api-restaurant-manager',
                     projectLink: 'https://www.restagile.com/'
+                },
+                {
+                    title: 'Dany Blog',
+                    description: 'Blog for a YouTube technology channel.',
+                    tech: ['Next.js', 'TypeScript', 'React'],
+                    githubLink: 'https://github.com/DanyGuerra/blog-danywar',
+                    projectLink: 'https://blog-danywar.vercel.app/'
+                },
+                {
+                    title: 'MecanografiaTyping',
+                    description: 'Web application to measure typing speed. Includes speed tests, results history, statistics, and training modes to improve typing agility.',
+                    tech: ['React', 'Next.js', 'TypeScript'],
+                    githubLink: 'https://github.com/DanyGuerra/mecanografia-typing',
+                    projectLink: 'https://mecanografia-typing.vercel.app/en'
                 }
             ]
         },
@@ -270,6 +284,20 @@ const translations = {
                     tech: ['Nestjs', 'TypeScript', "AWS", "PostgreSQL", "JWT"],
                     githubLink: 'https://github.com/DanyGuerra/api-restaurant-manager',
                     projectLink: 'https://www.restagile.com/'
+                },
+                {
+                    title: 'Dany Blog',
+                    description: 'Blog de canal de tecnologia de YouTube',
+                    tech: ['NextJs', 'TypeScript', 'React'],
+                    githubLink: 'https://github.com/DanyGuerra/blog-danywar',
+                    projectLink: 'https://blog-danywar.vercel.app/'
+                },
+                {
+                    title: 'MecanografiaTyping',
+                    description: 'Aplicación web para medir la velocidad de escritura de los dedos. Incluye pruebas de velocidad, historial de resultados, estadísticas y modos de entrenamiento para mejorar la agilidad al teclear.',
+                    tech: ['React', 'NextJs', 'TypeScript'],
+                    githubLink: 'https://github.com/DanyGuerra/mecanografia-typing',
+                    projectLink: 'https://mecanografia-typing.vercel.app/en'
                 },
             ]
         },
